@@ -26,17 +26,17 @@
             VerticalAlignment="Top"
             Orientation="Horizontal">
             <ComboBox
+                x:Name="cbSearchBy"
                 Width="120"
                 Margin="0,0,8,0"
                 VerticalAlignment="Center"
-                materialDesign:HintAssist.Hint="Search By">
-                <ComboBoxItem Content="Name" />
-                <ComboBoxItem Content="ID" />
-            </ComboBox>
+                materialDesign:HintAssist.Hint="Search By" />
             <TextBox
+                x:Name="txtSearch"
                 Width="200"
                 VerticalAlignment="Center"
-                materialDesign:HintAssist.Hint="Search" />
+                materialDesign:HintAssist.Hint="Search"
+                KeyDown="txtSearch_KeyDown" />
             <StackPanel
                 Margin="10,0,0,0"
                 HorizontalAlignment="Right"
@@ -73,7 +73,6 @@
                             Kind="Reload" />
                     </StackPanel>
                 </Button>
-
             </StackPanel>
         </StackPanel>
 
