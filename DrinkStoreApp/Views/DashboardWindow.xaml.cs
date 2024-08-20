@@ -127,8 +127,7 @@ namespace DrinkStoreApp.Views
 
         private void NavigateToProductPage()
         {
-            ProductManage unitManage = new ProductManage();
-            unitManage.ShowDialog();
+            // Logic to navigate to the Product page
         }
 
         private void NavigateToServicePage()
@@ -148,8 +147,7 @@ namespace DrinkStoreApp.Views
 
         private void NavigateToUnitPage()
         {
-            UnitManage unitManage = new UnitManage();
-            unitManage.ShowDialog();
+            // Logic to navigate to the Unit page
         }
 
         private void NavigateToCustomerPage()

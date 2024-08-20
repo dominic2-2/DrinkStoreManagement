@@ -39,7 +39,6 @@ namespace DrinkStoreApp.Views
         }
         DrinkStoreContext context = new DrinkStoreContext();
         List<string> listStatus = new List<string>() {"Inactive", "Active"};
-        List<string> listSearch = new List<string>() { "ID", "Username" };
         private void LoadData()
         {
             dgUser.ItemsSource = context.Users.Select(u => new
@@ -57,7 +56,6 @@ namespace DrinkStoreApp.Views
             }).ToList();
             cbRole.ItemsSource = context.UserRoles.Select(r => r.RoleName).ToList();
             cbStatus.ItemsSource = listStatus;
-            cbSearchBy.ItemsSource = listSearch;
             if (cbStatus.SelectedIndex == -1)
             {
                 cbStatus.SelectedIndex = 0;
@@ -65,10 +63,6 @@ namespace DrinkStoreApp.Views
             if (imgProfile.Source == null)
             {
                 imgProfile.Source = new BitmapImage(new Uri("/Resources/Images/noimage.jpg", UriKind.Relative));
-            }
-            if (cbSearchBy.SelectedIndex == -1)
-            {
-                cbSearchBy.SelectedIndex = 0;
             }
 
         }
@@ -134,7 +128,7 @@ namespace DrinkStoreApp.Views
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            int id = tbUserID.Text == string.Empty ? 0 : int.Parse(tbUserID.Text);
+            int id = int.Parse(tbUserID.Text);
             var editUser = context.Users.FirstOrDefault(u => u.UserId == id);
             if (editUser != null) { 
                 editUser.Username = tbUsername.Text;
@@ -152,7 +146,7 @@ namespace DrinkStoreApp.Views
                 editUser.Image = tbURL.Text;
 
                 context.SaveChanges();
-                MessageBox.Show($"Update success", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Success", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 LoadData();
             }
             else
@@ -250,8 +244,6 @@ namespace DrinkStoreApp.Views
             cbStatus.SelectedIndex = 0;
             tbURL.Text = string.Empty;
             imgProfile.Source = null;
-            cbSearchBy.SelectedIndex = -1;
-            txtSearch.Text = string.Empty;
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
@@ -296,52 +288,6 @@ namespace DrinkStoreApp.Views
                 }
             }
         }
-
-        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                PerformSearch();
-            }
-        }
-
-        private void PerformSearch()
-        {
-            string searchBy = cbSearchBy.SelectedItem?.ToString() ?? "ID";
-            string searchText = txtSearch.Text.Trim();
-
-            var query = context.Users.AsQueryable();
-
-            if (!string.IsNullOrEmpty(searchText))
-            {
-                switch (searchBy)
-                {
-                    case "ID":
-                        if (int.TryParse(searchText, out int userId))
-                        {
-                            query = query.Where(u => u.UserId == userId);
-                        }
-                        break;
-
-                    case "Username":
-                        query = query.Where(u => u.Username.Contains(searchText));
-                        break;
-                }
-            }
-
-            dgUser.ItemsSource = query.Select(u => new
-            {
-                UserId = u.UserId,
-                DisplayName = u.DisplayName,
-                Username = u.Username,
-                RoleName = u.Role.RoleName,
-                RoleId = u.RoleId,
-                Password = u.Password,
-                Phone = u.PhoneNumber,
-                Email = u.Email,
-                Image = u.Image,
-                Status = listStatus[u.Status]
-            }).ToList();
-        }
+        
     }
 }

@@ -53,13 +53,10 @@ public partial class DrinkStoreContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        Console.WriteLine(Directory.GetCurrentDirectory());
-        IConfiguration config = new ConfigurationBuilder()
-        .SetBasePath(Directory.GetCurrentDirectory())
-        .AddJsonFile("appsettings.json", true, true)
-        .Build();
-        var strConn = config["ConnectionStrings:MyDatabase"];
-        optionsBuilder.UseSqlServer(strConn);
+        var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+        IConfigurationRoot configuration = builder.Build();
+        optionsBuilder.UseSqlServer(configuration.GetConnectionString("MyCnn"));
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
