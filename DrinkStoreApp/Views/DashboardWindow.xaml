@@ -57,7 +57,7 @@
                         </StackPanel>
                     </Button>
                 </StackPanel>
-                <ListBox FontSize="16">
+                <ListBox FontSize="16" SelectionChanged="ListBox_SelectionChanged">
                     <ListBoxItem VerticalAlignment="Center">
                         <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                             <materialDesign:PackIcon
@@ -259,16 +259,19 @@
                     <TextBlock
                         Grid.Row="0"
                         Margin="16,16,16,4"
+                        FontSize="18"
+                        Foreground="White"
                         Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                        Text="Total Import Cost" Foreground="White" FontSize="18" />
+                        Text="Total Import Cost" />
                     <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
                     <TextBlock
                         Grid.Row="2"
                         Margin="16,0,16,8"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                        Foreground="#FFFF1E1E"
                         Style="{StaticResource MaterialDesignBody2TextBlock}"
-                        Text="000 VND" Foreground="#FFFF1E1E" />
+                        Text="000 VND" />
                     <StackPanel
                         Grid.Row="2"
                         Margin="16,0,16,8"
@@ -277,9 +280,7 @@
                         <materialDesign:PopupBox
                             Padding="2,0,2,0"
                             HorizontalAlignment="Right"
-                            Style="{StaticResource MaterialDesignToolForegroundPopupBox}">
-
-                        </materialDesign:PopupBox>
+                            Style="{StaticResource MaterialDesignToolForegroundPopupBox}" />
                     </StackPanel>
                 </Grid>
             </materialDesign:Card>
@@ -299,16 +300,19 @@
                     <TextBlock
                         Grid.Row="0"
                         Margin="16,16,16,4"
+                        FontSize="18"
+                        Foreground="White"
                         Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                        Text="Total Sales Amount" FontSize="18" Foreground="White" />
+                        Text="Total Sales Amount" />
                     <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
                     <TextBlock
                         Grid.Row="2"
                         Margin="16,0,16,8"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                        Foreground="#FFFF1E1E"
                         Style="{StaticResource MaterialDesignBody2TextBlock}"
-                        Text="000 VND" Foreground="#FFFF1E1E" />
+                        Text="000 VND" />
                     <StackPanel
                         Grid.Row="2"
                         Margin="16,0,16,8"
@@ -317,9 +321,7 @@
                         <materialDesign:PopupBox
                             Padding="2,0,2,0"
                             HorizontalAlignment="Right"
-                            Style="{StaticResource MaterialDesignToolForegroundPopupBox}">
-
-                        </materialDesign:PopupBox>
+                            Style="{StaticResource MaterialDesignToolForegroundPopupBox}" />
                     </StackPanel>
                 </Grid>
             </materialDesign:Card>
@@ -339,16 +341,19 @@
                     <TextBlock
                         Grid.Row="0"
                         Margin="16,16,16,4"
+                        FontSize="18"
+                        Foreground="White"
                         Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                        Text="Total Sales Amount" FontSize="18" Foreground="White" />
+                        Text="Total Sales Amount" />
                     <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
                     <TextBlock
                         Grid.Row="2"
                         Margin="16,0,16,8"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                        Foreground="#FFFF1E1E"
                         Style="{StaticResource MaterialDesignBody2TextBlock}"
-                        Text="000 VND" Foreground="#FFFF1E1E" />
+                        Text="000 VND" />
                     <StackPanel
                         Grid.Row="2"
                         Margin="16,0,16,8"
@@ -357,11 +362,17 @@
                         <materialDesign:PopupBox
                             Padding="2,0,2,0"
                             HorizontalAlignment="Right"
-                            Style="{StaticResource MaterialDesignToolForegroundPopupBox}"/>
+                            Style="{StaticResource MaterialDesignToolForegroundPopupBox}" />
                     </StackPanel>
                 </Grid>
             </materialDesign:Card>
-            <DataGrid HorizontalAlignment="Center" Height="292" Margin="0,543,0,0" VerticalAlignment="Top" Width="1516" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+            <DataGrid
+                Width="1516"
+                Height="292"
+                Margin="0,543,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                d:ItemsSource="{d:SampleData ItemCount=5}" />
 
         </Grid>
     </materialDesign:DrawerHost>

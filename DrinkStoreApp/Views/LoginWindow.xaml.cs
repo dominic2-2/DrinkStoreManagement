@@ -40,6 +40,9 @@ namespace DrinkStoreApp.Views
 
             if (CheckLogin(username, password))
             {
+                var user = _dbContext.Users.FirstOrDefault(u => u.Username == username);
+                Application.Current.Properties["CurrentUser"] = user;
+
                 MessageBox.Show("Login successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 var dashboard = new DashboardWindow();
                 dashboard.Show();
