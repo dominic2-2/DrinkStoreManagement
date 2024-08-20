@@ -6,24 +6,43 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>coffee-shop-logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Images\" />
+    <None Remove="Resources\Images\coffee-shop-logo-design-png.webp" />
+    <None Remove="Resources\Images\meocon.jpg" />
+    <None Remove="Resources\Images\noimage.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="coffee-shop-logo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\coffee-shop-logo-design-png.webp" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Resources\Styles\" />
     <Folder Include="Utilities\" />
-    <Folder Include="Services\" />
-    <Folder Include="Views\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.7" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\meocon.jpg" />
+    <Resource Include="Resources\Images\noimage.jpg" />
   </ItemGroup>
 
   <ItemGroup>
