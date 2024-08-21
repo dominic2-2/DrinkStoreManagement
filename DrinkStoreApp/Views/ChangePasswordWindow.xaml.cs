@@ -61,10 +61,18 @@ namespace DrinkStoreApp.Views
                     MessageBox.Show("Password has been updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
-               
+
 
                 // Optionally, you might want to close the window or clear the fields
-                this.Close();
+                var loginWindow = new LoginWindow();
+                loginWindow.Show();
+                foreach (Window window in Application.Current.Windows)
+                {
+                    if (window != loginWindow)
+                    {
+                        window.Close();
+                    }
+                }
             }
             catch (Exception ex)
             {
