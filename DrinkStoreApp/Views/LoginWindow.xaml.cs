@@ -27,12 +27,14 @@ namespace DrinkStoreApp.Views
             InitializeComponent();
             _dbContext = new DrinkStoreContext();
         }
+
         private bool CheckLogin(string username, string password)
         {
             var user = _dbContext.Users
                 .FirstOrDefault(u => u.Username == username && u.Password == password);
             return user != null;
         }
+
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             string username = txtUserName.Text.Trim();
@@ -42,8 +44,6 @@ namespace DrinkStoreApp.Views
             {
                 var user = _dbContext.Users.FirstOrDefault(u => u.Username == username);
                 Application.Current.Properties["CurrentUser"] = user;
-
-                //MessageBox.Show("Login successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 var dashboard = new DashboardWindow();
                 dashboard.Show();
                 this.Close();

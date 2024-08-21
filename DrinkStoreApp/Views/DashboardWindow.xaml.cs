@@ -1,4 +1,7 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿using DrinkStoreApp.Models;
+using DrinkStoreApp.Services;
+using MaterialDesignThemes.Wpf;
+using Microsoft.VisualBasic.ApplicationServices;
 using Microsoft.VisualBasic.Logging;
 using System;
 using System.Collections.Generic;
@@ -21,11 +24,14 @@ namespace DrinkStoreApp.Views
     /// </summary>
     public partial class DashboardWindow : Window
     {
+        //private DrinkStoreContext currentUser;
+        private readonly SecurityService _securityService = new SecurityService();
         public DashboardWindow()
         {
             InitializeComponent();
+            LoadData();
         }
-
+        DrinkStoreContext context = new DrinkStoreContext();
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
@@ -160,11 +166,53 @@ namespace DrinkStoreApp.Views
             UserWindow userWindow = new UserWindow();
             userWindow.ShowDialog();
         }
+        private void LoadData()
+
+        {
+            var user = _securityService.GetCurrentUser();
+            txtUserName.Text = user.Username;
+           txtUserRole.Text = context.UserRoles.FirstOrDefault(c => c.RoleId == user.RoleId).RoleName;
+            if (imgAvatar.ImageSource == null)
+            {
+                imgAvatar.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/meocon.jpg", UriKind.Absolute));
+
+            }
+
+
+        }
 
 
         private void HamburgerButton_Checked(object sender, RoutedEventArgs e)
         {
             drawerHost.IsLeftDrawerOpen = !drawerHost.IsLeftDrawerOpen;
         }
+        private void Avatar_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            AvatarContextMenu.PlacementTarget = (UIElement)sender;
+            AvatarContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            AvatarContextMenu.IsOpen = true;
+        }
+
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+            var loginWindow = new LoginWindow();
+            loginWindow.Show();
+            this.Close();
+        }
+
+        private void ChangePassword_Click(object sender, RoutedEventArgs e)
+        {
+            var changePasswordWindow = new ChangePasswordWindow(context);
+
+            
+            changePasswordWindow.Owner = this;
+
+            
+            changePasswordWindow.ShowDialog();
+
+        }
+
+       
     }
 }
+

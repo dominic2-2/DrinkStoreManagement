@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\coffee-shop-logo-design-png.webp" />
+    <None Remove="Resources\Images\meocon.jpg" />
     <None Remove="Resources\Images\noimage.jpg" />
   </ItemGroup>
 
@@ -40,6 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\meocon.jpg" />
     <Resource Include="Resources\Images\noimage.jpg" />
   </ItemGroup>
 

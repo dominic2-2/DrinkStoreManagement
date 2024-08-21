@@ -19,43 +19,29 @@
         <materialDesign:DrawerHost.LeftDrawerContent>
             <StackPanel Width="200" Background="{DynamicResource PrimaryHueLightBrush}">
                 <StackPanel Height="200" Background="Black">
-                    <Ellipse
-                        x:Name="Avatar"
-                        Width="50"
-                        Height="50"
-                        Margin="0,40,0,0"
-                        HorizontalAlignment="Center">
+                    <Ellipse 
+                             Width="100" Height="100"
+                             Margin="0,40,0,0"
+                             HorizontalAlignment="Center"
+                             MouseLeftButtonDown="Avatar_MouseLeftButtonDown">
                         <Ellipse.Fill>
-                            <ImageBrush ImageSource="{Binding Avatar}" />
+                            <ImageBrush x:Name="imgAvatar" />
                         </Ellipse.Fill>
+                        <Ellipse.ContextMenu>
+                            <ContextMenu x:Name="AvatarContextMenu">
+                                <MenuItem Header="Change Password" Click="ChangePassword_Click"/>
+                                <MenuItem Header="Logout" Click="Logout_Click"/>
+                            </ContextMenu>
+                        </Ellipse.ContextMenu>
                     </Ellipse>
-                    <TextBlock
-                        x:Name="UserName"
-                        HorizontalAlignment="Center"
-                        Text="{Binding UserName}" />
-                    <TextBlock
-                        x:Name="UserRole"
-                        HorizontalAlignment="Center"
-                        Text="{Binding UserRole}" />
 
-                    <Button
-                        x:Name="LogOutButton"
-                        Height="45"
-                        Margin="0,35,0,0"
-                        Padding="0"
-                        Background="{x:Null}"
-                        BorderBrush="{x:Null}"
-                        Command="{Binding LogOutCommand}"
-                        Foreground="Red">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon
-                                Width="35"
-                                Height="35"
-                                VerticalAlignment="Center"
-                                Kind="Power" />
-                            <TextBlock VerticalAlignment="Center" Text="Logout" />
-                        </StackPanel>
-                    </Button>
+                    <TextBlock x:Name="txtUserName"
+           HorizontalAlignment="Center"
+           Margin="0,10" Foreground="White"/>
+                    <TextBlock x:Name="txtUserRole"
+           HorizontalAlignment="Center" Foreground="White"
+            />
+    
                 </StackPanel>
                 <ListBox FontSize="16" SelectionChanged="ListBox_SelectionChanged">
                     <ListBoxItem VerticalAlignment="Center">
