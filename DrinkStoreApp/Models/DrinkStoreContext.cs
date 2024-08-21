@@ -53,20 +53,17 @@ public partial class DrinkStoreContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        Console.WriteLine(Directory.GetCurrentDirectory());
-        IConfiguration config = new ConfigurationBuilder()
-        .SetBasePath(Directory.GetCurrentDirectory())
-        .AddJsonFile("appsettings.json", true, true)
-        .Build();
-        var strConn = config["ConnectionStrings:MyDatabase"];
-        optionsBuilder.UseSqlServer(strConn);
+        var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+        IConfigurationRoot configuration = builder.Build();
+        optionsBuilder.UseSqlServer(configuration.GetConnectionString("MyCnn"));
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Coupon>(entity =>
         {
-            entity.HasKey(e => e.CouponId).HasName("PK__Coupon__58CF63894D68949A");
+            entity.HasKey(e => e.CouponId).HasName("PK__Coupon__58CF638913D6F478");
 
             entity.ToTable("Coupon");
 
@@ -96,7 +93,7 @@ public partial class DrinkStoreContext : DbContext
 
         modelBuilder.Entity<Customer>(entity =>
         {
-            entity.HasKey(e => e.CustomerId).HasName("PK__Customer__CD65CB85037354AC");
+            entity.HasKey(e => e.CustomerId).HasName("PK__Customer__CD65CB858DF49A38");
 
             entity.ToTable("Customer");
 
@@ -119,11 +116,11 @@ public partial class DrinkStoreContext : DbContext
 
         modelBuilder.Entity<CustomerCoupon>(entity =>
         {
-            entity.HasKey(e => e.CustomerCouponId).HasName("PK__Customer__8A50B4DBEDF496AF");
+            entity.HasKey(e => e.CustomerCouponId).HasName("PK__Customer__8A50B4DB39393F35");
 
             entity.ToTable("CustomerCoupon");
 
-            entity.HasIndex(e => e.OrderId, "UQ__Customer__46596228D0732F2F").IsUnique();
+            entity.HasIndex(e => e.OrderId, "UQ__Customer__4659622879DE3050").IsUnique();
 
             entity.Property(e => e.CustomerCouponId).HasColumnName("customer_coupon_id");
             entity.Property(e => e.CouponId).HasColumnName("coupon_id");
@@ -150,7 +147,7 @@ public partial class DrinkStoreContext : DbContext
 
         modelBuilder.Entity<Import>(entity =>
         {
-            entity.HasKey(e => e.ImportId).HasName("PK__Import__F3E6B05F7B2480FC");
+            entity.HasKey(e => e.ImportId).HasName("PK__Import__F3E6B05FB8955DB0");
 
             entity.ToTable("Import");
 
@@ -185,7 +182,7 @@ public partial class DrinkStoreContext : DbContext
 
         modelBuilder.Entity<ImportDetail>(entity =>
         {
-            entity.HasKey(e => e.ImportDetailId).HasName("PK__ImportDe__6C144AB23D3284C0");
+            entity.HasKey(e => e.ImportDetailId).HasName("PK__ImportDe__6C144AB2EF21D756");
 
             entity.ToTable("ImportDetail");
 
@@ -215,7 +212,7 @@ public partial class DrinkStoreContext : DbContext
 
         modelBuilder.Entity<Ingredient>(entity =>
         {
-            entity.HasKey(e => e.IngredientId).HasName("PK__Ingredie__B0E453CFA6F1F398");
+            entity.HasKey(e => e.IngredientId).HasName("PK__Ingredie__B0E453CF6B28DA74");
 
             entity.ToTable("Ingredient");
 
@@ -268,7 +265,7 @@ public partial class DrinkStoreContext : DbContext
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
-            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__3C5A4080DF4E537C");
+            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__3C5A4080875BE081");
 
             entity.ToTable("OrderDetail");
 
@@ -294,7 +291,7 @@ public partial class DrinkStoreContext : DbContext
 
         modelBuilder.Entity<Payment>(entity =>
         {
-            entity.HasKey(e => e.PaymentId).HasName("PK__Payment__ED1FC9EAE7627D8F");
+            entity.HasKey(e => e.PaymentId).HasName("PK__Payment__ED1FC9EA42FD6952");
 
             entity.ToTable("Payment");
 
@@ -333,7 +330,7 @@ public partial class DrinkStoreContext : DbContext
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.ProductId).HasName("PK__Product__47027DF51B0B4C49");
+            entity.HasKey(e => e.ProductId).HasName("PK__Product__47027DF5159CAADC");
 
             entity.ToTable("Product");
 
@@ -350,6 +347,9 @@ public partial class DrinkStoreContext : DbContext
             entity.Property(e => e.ProductName)
                 .HasMaxLength(100)
                 .HasColumnName("product_name");
+            entity.Property(e => e.Quantity)
+                .HasColumnType("decimal(10, 2)")
+                .HasColumnName("quantity");
             entity.Property(e => e.Status)
                 .HasDefaultValue((byte)1)
                 .HasColumnName("status");
@@ -367,7 +367,7 @@ public partial class DrinkStoreContext : DbContext
 
         modelBuilder.Entity<ProductPromotion>(entity =>
         {
-            entity.HasKey(e => e.ProductPromotionId).HasName("PK__ProductP__DCB4F1DDF6E67681");
+            entity.HasKey(e => e.ProductPromotionId).HasName("PK__ProductP__DCB4F1DDA1AE9865");
 
             entity.ToTable("ProductPromotion");
 
@@ -393,7 +393,7 @@ public partial class DrinkStoreContext : DbContext
 
         modelBuilder.Entity<Promotion>(entity =>
         {
-            entity.HasKey(e => e.PromotionId).HasName("PK__Promotio__2CB9556BF063C768");
+            entity.HasKey(e => e.PromotionId).HasName("PK__Promotio__2CB9556B5F6977D6");
 
             entity.ToTable("Promotion");
 
@@ -422,7 +422,7 @@ public partial class DrinkStoreContext : DbContext
 
         modelBuilder.Entity<Recipe>(entity =>
         {
-            entity.HasKey(e => e.RecipeId).HasName("PK__Recipe__3571ED9B7D862A6A");
+            entity.HasKey(e => e.RecipeId).HasName("PK__Recipe__3571ED9B5F33A009");
 
             entity.ToTable("Recipe");
 
@@ -457,7 +457,7 @@ public partial class DrinkStoreContext : DbContext
 
         modelBuilder.Entity<RecipeDetail>(entity =>
         {
-            entity.HasKey(e => e.RecipeDetailId).HasName("PK__RecipeDe__AE704378CE5262EA");
+            entity.HasKey(e => e.RecipeDetailId).HasName("PK__RecipeDe__AE7043782942710A");
 
             entity.ToTable("RecipeDetail");
 
@@ -487,7 +487,7 @@ public partial class DrinkStoreContext : DbContext
 
         modelBuilder.Entity<Unit>(entity =>
         {
-            entity.HasKey(e => e.UnitId).HasName("PK__Unit__D3AF5BD76D881501");
+            entity.HasKey(e => e.UnitId).HasName("PK__Unit__D3AF5BD77592D04F");
 
             entity.ToTable("Unit");
 
@@ -499,9 +499,11 @@ public partial class DrinkStoreContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__User__B9BE370FE4574F34");
+            entity.HasKey(e => e.UserId).HasName("PK__User__B9BE370FDC9DA085");
 
             entity.ToTable("User");
+
+            entity.HasIndex(e => e.Username, "UQ__User__F3DBC572D1F29AF7").IsUnique();
 
             entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.CreatedAt)
@@ -540,7 +542,7 @@ public partial class DrinkStoreContext : DbContext
 
         modelBuilder.Entity<UserRole>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PK__UserRole__760965CC0712DE1B");
+            entity.HasKey(e => e.RoleId).HasName("PK__UserRole__760965CCF886B23C");
 
             entity.ToTable("UserRole");
 

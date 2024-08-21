@@ -19,6 +19,8 @@ public partial class Product
 
     public int UnitId { get; set; }
 
+    public decimal Quantity { get; set; }
+
     public DateTime CreatedAt { get; set; }
 
     public DateTime UpdatedAt { get; set; }

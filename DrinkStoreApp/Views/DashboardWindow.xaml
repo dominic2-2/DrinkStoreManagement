@@ -19,29 +19,33 @@
         <materialDesign:DrawerHost.LeftDrawerContent>
             <StackPanel Width="200" Background="{DynamicResource PrimaryHueLightBrush}">
                 <StackPanel Height="200" Background="Black">
-                    <Ellipse 
-                             Width="100" Height="100"
-                             Margin="0,40,0,0"
-                             HorizontalAlignment="Center"
-                             MouseLeftButtonDown="Avatar_MouseLeftButtonDown">
+                    <Ellipse
+                        Width="100"
+                        Height="100"
+                        Margin="0,40,0,0"
+                        HorizontalAlignment="Center"
+                        MouseLeftButtonDown="Avatar_MouseLeftButtonDown">
                         <Ellipse.Fill>
                             <ImageBrush x:Name="imgAvatar" />
                         </Ellipse.Fill>
                         <Ellipse.ContextMenu>
                             <ContextMenu x:Name="AvatarContextMenu">
-                                <MenuItem Header="Change Password" Click="ChangePassword_Click"/>
-                                <MenuItem Header="Logout" Click="Logout_Click"/>
+                                <MenuItem Click="ChangePassword_Click" Header="Change Password" />
+                                <MenuItem Click="Logout_Click" Header="Logout" />
                             </ContextMenu>
                         </Ellipse.ContextMenu>
                     </Ellipse>
 
-                    <TextBlock x:Name="txtUserName"
-           HorizontalAlignment="Center"
-           Margin="0,10" Foreground="White"/>
-                    <TextBlock x:Name="txtUserRole"
-           HorizontalAlignment="Center" Foreground="White"
-            />
-    
+                    <TextBlock
+                        x:Name="txtUserName"
+                        Margin="0,10"
+                        HorizontalAlignment="Center"
+                        Foreground="White" />
+                    <TextBlock
+                        x:Name="txtUserRole"
+                        HorizontalAlignment="Center"
+                        Foreground="White" />
+
                 </StackPanel>
                 <ListBox FontSize="16" SelectionChanged="ListBox_SelectionChanged">
                     <ListBoxItem VerticalAlignment="Center">
@@ -72,7 +76,7 @@
                                 Text="Order" />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem VerticalAlignment="Center">
+                    <!--<ListBoxItem VerticalAlignment="Center">
                         <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                             <materialDesign:PackIcon
                                 Width="25"
@@ -85,7 +89,7 @@
                                 VerticalAlignment="Center"
                                 Text="Import" />
                         </StackPanel>
-                    </ListBoxItem>
+                    </ListBoxItem>-->
                     <ListBoxItem VerticalAlignment="Center">
                         <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                             <materialDesign:PackIcon
@@ -114,7 +118,7 @@
                                 Text="Product" />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem VerticalAlignment="Center">
+                    <!--<ListBoxItem VerticalAlignment="Center">
                         <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                             <materialDesign:PackIcon
                                 Width="25"
@@ -127,8 +131,8 @@
                                 VerticalAlignment="Center"
                                 Text="Service" />
                         </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem VerticalAlignment="Center">
+                    </ListBoxItem>-->
+                    <!--<ListBoxItem VerticalAlignment="Center">
                         <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                             <materialDesign:PackIcon
                                 Width="25"
@@ -141,8 +145,8 @@
                                 VerticalAlignment="Center"
                                 Text="Recipe" />
                         </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem VerticalAlignment="Center">
+                    </ListBoxItem>-->
+                    <!--<ListBoxItem VerticalAlignment="Center">
                         <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                             <materialDesign:PackIcon
                                 Width="25"
@@ -155,7 +159,7 @@
                                 VerticalAlignment="Center"
                                 Text="Ingredient" />
                         </StackPanel>
-                    </ListBoxItem>
+                    </ListBoxItem>-->
                     <ListBoxItem VerticalAlignment="Center">
                         <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                             <materialDesign:PackIcon
@@ -209,7 +213,6 @@
                     <!--  PopupBox on the right  -->
                     <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges">
                         <ListBox>
-                            <ListBoxItem Content="Refresh" />
                             <ListBoxItem Content="FAQ" />
                             <ListBoxItem Content="About" />
                         </ListBox>

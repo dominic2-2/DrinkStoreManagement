@@ -158,7 +158,7 @@ GO
 CREATE TABLE [dbo].[User](
 	[user_id] [int] IDENTITY(1,1) NOT NULL,
 	[display_name] [nvarchar](100) NULL,
-	[username] [varchar](100) NOT NULL,
+	[username] [varchar](100) NOT NULL UNIQUE,
 	[password] [nvarchar](max) NULL,
 	[role_id] [int] NOT NULL,
 	[phone_number] [varchar](15) NULL,
@@ -210,6 +210,7 @@ CREATE TABLE [dbo].[Product](
 	[image] [nvarchar](max) NULL,
 	[status] [tinyint] NOT NULL,
 	[unit_id] [int] NOT NULL,
+	[quantity] [decimal](10, 2) NOT NULL,
 	[created_at] [datetime] NOT NULL,
 	[updated_at] [datetime] NOT NULL,
 PRIMARY KEY CLUSTERED 
@@ -693,3 +694,46 @@ GO
 ALTER TABLE [dbo].[CustomerCoupon] CHECK CONSTRAINT [FK_CustomerCoupon_Order]
 GO
 
+
+--Coupon
+
+--Customer
+
+--Promotion
+
+--Unit
+
+--UserRole
+INSERT INTO [UserRole] (role_id, role_name) VALUES
+(1, 'Admin'),
+(2, 'Manager'),
+(3, 'Inventory Staff'),
+(4, 'Sale Staff');
+
+--User
+INSERT INTO [dbo].[User] 
+    ([display_name], [username], [password], [role_id], [phone_number], [email], [status], [image], [created_at], [updated_at])
+VALUES 
+    ('Administrator', 'admin', 'admin', 1, '0123456789', 'admin@example.com', 1, NULL, GETDATE(), GETDATE());
+
+--Product
+
+--Recipe
+
+--Ingredient
+
+--Import
+
+--Order
+
+--OrderDetail
+
+--Payment
+
+--RecipeDetail
+
+--ProductPromotion
+
+--ImportDetail
+
+--CustomerCoupon

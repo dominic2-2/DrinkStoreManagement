@@ -44,6 +44,8 @@ namespace DrinkStoreApp.Views
             {
                 var user = _dbContext.Users.FirstOrDefault(u => u.Username == username);
                 Application.Current.Properties["CurrentUser"] = user;
+                user.Status = 1;
+                _dbContext.SaveChanges();
                 var dashboard = new DashboardWindow();
                 dashboard.Show();
                 this.Close();

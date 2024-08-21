@@ -197,6 +197,13 @@ namespace DrinkStoreApp.Views
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
+            var securityService = new SecurityService();
+            var currentUser = context.Users.FirstOrDefault(u => u.Equals(securityService.GetCurrentUser()));
+            if (currentUser != null)
+            {
+                currentUser.Status = 0;
+                context.SaveChanges();
+            }
             var loginWindow = new LoginWindow();
             loginWindow.Show();
             this.Close();

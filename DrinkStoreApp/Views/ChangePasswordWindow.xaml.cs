@@ -56,6 +56,7 @@ namespace DrinkStoreApp.Views
                 if (saveUser != null)
                 {
                     saveUser.Password = newPassword;
+                    saveUser.Status = 0;
                     context.SaveChanges();
 
                     MessageBox.Show("Password has been updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
