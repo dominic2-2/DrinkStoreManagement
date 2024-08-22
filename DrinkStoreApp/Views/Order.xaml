@@ -16,6 +16,23 @@
             VerticalAlignment="Top"
             Click="Button_Click"
             Content="Print" />
+        <TextBox
+            x:Name="tbDeliveryAddress"
+            Width="120"
+            Margin="139,216,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text="123 ABC"
+            TextWrapping="Wrap" />
+        <TextBox
+            x:Name="tbOrderId"
+            Width="137"
+            Height="39"
+            Margin="122,295,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text="3"
+            TextWrapping="Wrap" />
 
     </Grid>
 </Window>

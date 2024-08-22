@@ -26,8 +26,9 @@ namespace DrinkStoreApp.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
-            BillPrintWindow billPrint = new BillPrintWindow();
+            string orderId = tbOrderId.Text;
+            string deliveryAddress = tbDeliveryAddress.Text;
+            BillPrintWindow billPrint = new BillPrintWindow(orderId, deliveryAddress);
             billPrint.ShowDialog();
         }
     }

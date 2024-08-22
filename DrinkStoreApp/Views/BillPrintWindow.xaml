@@ -10,8 +10,8 @@
     Width="600"
     Height="740"
     FontFamily="Roboto"
-    Style="{StaticResource MaterialDesignWindow}"
     ResizeMode="NoResize"
+    Style="{StaticResource MaterialDesignWindow}"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -134,11 +134,11 @@
                             Fill="Black"
                             Opacity="0.5" />
                         <ListView
+                            x:Name="lvProduct"
                             Height="auto"
                             Margin="2,2,0.2,2"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            ItemsSource="{Binding List}"
                             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                             <ListView.View>
                                 <GridView>
@@ -155,14 +155,10 @@
                                             Content="Name" />
                                     </GridViewColumn>
                                     <GridViewColumn Width="80" DisplayMemberBinding="{Binding Quantity}">
-                                        <GridViewColumnHeader
-                                            Padding="7"
-                                            Content="Quantity" />
+                                        <GridViewColumnHeader Padding="7" Content="Quantity" />
                                     </GridViewColumn>
                                     <GridViewColumn Width="50" DisplayMemberBinding="{Binding Unit}">
-                                        <GridViewColumnHeader
-                                            Padding="0"
-                                            Content="Unit" />
+                                        <GridViewColumnHeader Padding="0" Content="Unit" />
                                     </GridViewColumn>
                                     <GridViewColumn Width="120" DisplayMemberBinding="{Binding Price, StringFormat='0,0,0 VNĐ'}">
                                         <GridViewColumnHeader
@@ -190,7 +186,7 @@
                         Orientation="Vertical">
                         <Grid Margin="10,20,10,0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.3*" />
+                                <ColumnDefinition Width="0.5*" />
                                 <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="1*" />
