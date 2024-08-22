@@ -161,7 +161,8 @@ namespace DrinkStoreApp.Views
 
         private void NavigateToCustomerPage()
         {
-            // Logic to navigate to the Customer page
+            CustomerManage customerManage = new CustomerManage();
+            customerManage.ShowDialog();
         }
 
         private void NavigateToUserPage()
