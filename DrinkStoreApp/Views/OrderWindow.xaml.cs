@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -56,7 +57,6 @@ namespace DrinkStoreApp.Views
                 Quantity = p.Quantity,
             }).ToList();
 
-
             var selectUser = context.Users
                              .Where(user => user.Status == 1)
                              .ToList();
@@ -73,19 +73,13 @@ namespace DrinkStoreApp.Views
                 tbVN.Text = "No user with Status 1";
             }
 
-
-
             DateTime currentDate = DateTime.Now;
             string formattedDate = currentDate.ToString("dd/MM/yyyy");
             tbDate.Text = formattedDate;
 
 
-            var latestOrder = context.Orders
-    .OrderByDescending(o => o.OrderDate)
-    .FirstOrDefault();
-            dgAddProduct.ItemsSource = context.OrderDetails
-    .Where(od => od.OrderId == latestOrder.OrderId)
-    .ToList();
+            var latestOrder = context.Orders.OrderByDescending(o => o.OrderDate).FirstOrDefault();
+            dgAddProduct.ItemsSource = context.OrderDetails.Where(od => od.OrderId == latestOrder.OrderId).ToList();
         }
 
         private void CustomerDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -146,7 +140,7 @@ namespace DrinkStoreApp.Views
                         CustomerId = selectedCustomerId,  
                         CreatedBy = 1,
                         OrderDate = DateTime.Now,
-                        //DeliveryDate = dpDelivery.SelectedDate.HasValue ? dpDelivery.SelectedDate.Value : (DateTime?)null
+                        DeliveryDate = DateTime.Now,
                     };
                     context.Orders.Add(addOrder);
                     context.SaveChanges();
@@ -201,10 +195,7 @@ namespace DrinkStoreApp.Views
             var totalPrice = selectedProduct.Price * quantity;
 
             // Lấy OrderID của đơn hàng gần đây nhất
-            var latestOrder = context.Orders
-                .OrderByDescending(o => o.OrderDate)
-
-                .FirstOrDefault();
+            var latestOrder = context.Orders.OrderByDescending(o => o.OrderDate).FirstOrDefault();
 
             if (latestOrder == null)
             {
@@ -221,19 +212,12 @@ namespace DrinkStoreApp.Views
                 PromotionApplied = 0
             };
 
-            // Thêm OrderDetail vào context và lưu thay đổi
             context.OrderDetails.Add(orderDetail);
             context.SaveChanges();
 
-            // Cập nhật lại DataGrid dgAddProduct
-            dgAddProduct.ItemsSource = context.OrderDetails
-                .Where(od => od.OrderId == latestOrder.OrderId)
-                .ToList();
-
-            // Hiển thị thông báo thành công
+            dgAddProduct.ItemsSource = context.OrderDetails.Where(od => od.OrderId == latestOrder.OrderId).ToList();
             MessageBox.Show("Product added to order successfully.");
 
-            // Reset các trường nhập liệu
             ProductComboBox.SelectedIndex = -1;
             tbQuantity.Clear();
         }
@@ -241,52 +225,15 @@ namespace DrinkStoreApp.Views
 
         private void PrintBill_Click(object sender, RoutedEventArgs e)
         {
+            
+
             // Lấy OrderID của đơn hàng gần đây nhất
             var latestOrder = context.Orders
                 .OrderByDescending(o => o.OrderDate)
                 .FirstOrDefault();
 
-            if (latestOrder == null)
-            {
-                MessageBox.Show("No recent order found.");
-                return;
-            }
-
-            // Lấy tất cả các chi tiết đơn hàng cho OrderID hiện tại
-            var orderDetails = context.OrderDetails
-                .Where(od => od.OrderId == latestOrder.OrderId)
-                .ToList();
-
-            if (orderDetails.Count == 0)
-            {
-                MessageBox.Show("No items in the order.");
-                return;
-            }
-
-            // Tính tổng số tiền phải trả
-            var totalAmount = orderDetails.Sum(od => od.TotalPrice);
-
-            // Hiển thị thông tin hóa đơn
-            var billDetails = new StringBuilder();
-            billDetails.AppendLine($"Order ID: {latestOrder.OrderId}");
-            billDetails.AppendLine($"Order Date: {latestOrder.OrderDate.ToString("dd/MM/yyyy")}");
-            billDetails.AppendLine("Items:");
-
-            foreach (var detail in orderDetails)
-            {
-                var product = context.Products.FirstOrDefault(p => p.ProductId == detail.ProductId);
-                if (product != null)
-                {
-                    billDetails.AppendLine($"Product: {product.ProductName}, Quantity: {detail.Quantity}, Total Price: {detail.TotalPrice:C}");
-                }
-            }
-
-            billDetails.AppendLine($"Total Amount: {totalAmount:C}");
-
-            // Hiển thị thông tin hóa đơn trong một MessageBox
-            MessageBox.Show(billDetails.ToString(), "Bill Details");
-
-            // Hoặc bạn có thể in hóa đơn, lưu vào file, v.v. tùy theo yêu cầu của bạn.
+            BillPrintWindow billPrintWindow = new BillPrintWindow(latestOrder.OrderId.ToString(), null);
+            billPrintWindow.ShowDialog();
         }
 
 

@@ -101,17 +101,21 @@
                                         Margin="5"
                                         FontSize="12"
                                         Text="Customer:" />
+                                    <TextBlock
+                                        x:Name="tbCustomer"
+                                        Margin="5"
+                                        FontSize="12" />
                                 </StackPanel>
                                 <StackPanel Grid.Row="1" Orientation="Horizontal">
                                     <TextBlock
                                         Margin="5"
                                         FontSize="12"
-                                        Text="Delivery Address:" />
+                                        Text="Delivery:" />
                                     <TextBlock
+                                        x:Name="tbDelivery"
                                         Margin="5"
                                         FontSize="12"
-                                        FontWeight="DemiBold"
-                                        Text="{Binding Address}" />
+                                        FontWeight="DemiBold" />
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel Grid.Column="1" Margin="0,10,10,10">
@@ -121,10 +125,10 @@
                                         FontSize="12"
                                         Text="Bill Code:" />
                                     <TextBlock
+                                        x:Name="tbTransactionId"
                                         Margin="5"
                                         FontSize="12"
-                                        FontWeight="DemiBold"
-                                        Text="{Binding IDOutput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        FontWeight="DemiBold" />
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
@@ -160,14 +164,14 @@
                                     <GridViewColumn Width="50" DisplayMemberBinding="{Binding Unit}">
                                         <GridViewColumnHeader Padding="0" Content="Unit" />
                                     </GridViewColumn>
-                                    <GridViewColumn Width="120" DisplayMemberBinding="{Binding Price, StringFormat='0,0,0 VNĐ'}">
+                                    <GridViewColumn Width="120" DisplayMemberBinding="{Binding Price, StringFormat='0,0,0 VND'}">
                                         <GridViewColumnHeader
                                             Padding="7"
                                             HorizontalAlignment="Left"
                                             Content="Price"
                                             FontSize="13" />
                                     </GridViewColumn>
-                                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding SumPrice, StringFormat='0,0,0 VNĐ'}">
+                                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding SumPrice, StringFormat='0,0,0 VND'}">
                                         <GridViewColumnHeader
                                             Padding="7"
                                             HorizontalAlignment="Left"
@@ -198,9 +202,10 @@
                                 FontWeight="ExtraLight"
                                 Text="Created Date:" />
                             <TextBlock
+                                x:Name="tbOrderDate"
                                 Grid.Column="1"
                                 HorizontalAlignment="Left"
-                                FontSize="1"
+                                FontSize="12"
                                 FontWeight="ExtraLight" />
                             <TextBlock
                                 Grid.Column="2"
@@ -209,11 +214,11 @@
                                 FontWeight="Bold"
                                 Text="TOTAL AMOUNT: " />
                             <TextBlock
+                                x:Name="tbTotalAmount"
                                 Grid.Column="3"
                                 HorizontalAlignment="Left"
                                 FontSize="12"
-                                FontWeight="Bold"
-                                Text="" />
+                                FontWeight="Bold" />
                         </Grid>
                         <Grid Margin="0,20" HorizontalAlignment="Stretch">
                             <Grid.RowDefinitions>

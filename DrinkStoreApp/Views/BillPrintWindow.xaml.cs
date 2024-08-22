@@ -1,4 +1,6 @@
 ﻿using DrinkStoreApp.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,23 +23,24 @@ namespace DrinkStoreApp.Views
     public partial class BillPrintWindow : Window
     {
         DrinkStoreContext context = new DrinkStoreContext();
-        public BillPrintWindow(string orderId, string delivery)
+        public BillPrintWindow(string orderId, string? delivery)
         {
             InitializeComponent();
             LoadPage(orderId, delivery);
         }
 
-        private void LoadPage(string orderId, string delivery)
+        private void LoadPage(string orderId, string? delivery)
         {
+            int oID = int.Parse(orderId);
             var orderDetails = context.OrderDetails
-            .Where(od => od.OrderId == int.Parse(orderId))
+            .Where(od => od.OrderId == oID)
             .Select(od => new
             {
                 ProductName = od.Product.ProductName,
                 Quantity = od.Quantity,
                 Unit = od.Product.Unit.UnitName,
                 Price = od.Product.Price,
-                SumPrice = od.Quantity * od.Product.Price
+                SumPrice = od.TotalPrice
             }).ToList();
 
             var orderDetailsWithSTT = orderDetails
@@ -52,8 +55,40 @@ namespace DrinkStoreApp.Views
             })
             .ToList();
 
-            lvProduct.ItemsSource = orderDetailsWithSTT;
+            //Thêm payment
+            decimal totalAmount = 0;
+            foreach (var item in orderDetails) {
+                totalAmount += item.SumPrice;
+            }
 
+            var qrcode = "";
+
+            var payment = new Payment
+            {
+                OrderId = oID,
+                PaymentDate = DateTime.Now,
+                PaymentType = "QRCode",
+                AmountPaid = totalAmount,
+                TotalAmount = totalAmount,
+                ChangeDue = 0,
+                PaymentStatus = 1,
+                CouponApplied = 0,
+                TransactionId = qrcode
+            };
+            context.Payments.Add( payment );
+            context.SaveChanges();
+            lvProduct.ItemsSource = orderDetailsWithSTT;
+            var order = context.Orders
+                .Include(o => o.Customer)
+                .Include(o => o.OrderDetails)
+                .Include(o => o.Payment)
+                .FirstOrDefault(o => o.OrderId == oID);
+
+            tbTotalAmount.Text = order.Payment.TotalAmount.ToString();
+            tbOrderDate.Text = order.DeliveryDate.ToString();
+            tbCustomer.Text = order.Customer.FullName;
+            tbDelivery.Text = delivery?? "152 - Bắc Từ Liêm - Hà Nội";
+            tbTransactionId.Text = order.Payment.TransactionId;
         }
 
         private void Print_Click(object sender, RoutedEventArgs e)

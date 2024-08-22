@@ -129,8 +129,7 @@ namespace DrinkStoreApp.Views
 
         private void NavigateToPaymentPage()
         {
-            Order order = new Order();
-            order.ShowDialog();
+
         }
 
         private void NavigateToProductPage()
@@ -176,10 +175,15 @@ namespace DrinkStoreApp.Views
         {
             var user = _securityService.GetCurrentUser();
             txtUserName.Text = user.Username;
-           txtUserRole.Text = context.UserRoles.FirstOrDefault(c => c.RoleId == user.RoleId).RoleName;
-            if (imgAvatar.ImageSource == null)
+            txtUserRole.Text = context.UserRoles.FirstOrDefault(c => c.RoleId == user.RoleId).RoleName;
+            if (user.Image == null)
             {
                 imgAvatar.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/meocon.jpg", UriKind.Absolute));
+
+            }
+            else
+            {
+                imgAvatar.ImageSource = new BitmapImage(new Uri(user.Image, UriKind.Absolute));
 
             }
 
