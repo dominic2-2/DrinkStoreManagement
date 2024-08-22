@@ -128,7 +128,8 @@ namespace DrinkStoreApp.Views
 
         private void NavigateToPaymentPage()
         {
-            // Logic to navigate to the Payment page
+            Order order = new Order();
+            order.ShowDialog();
         }
 
         private void NavigateToProductPage()
