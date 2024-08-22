@@ -118,7 +118,8 @@ namespace DrinkStoreApp.Views
 
         private void NavigateToOrderPage()
         {
-            // Logic to navigate to the Order page
+            Window1 window1 = new Window1();
+            window1.ShowDialog();
         }
 
         private void NavigateToImportPage()
