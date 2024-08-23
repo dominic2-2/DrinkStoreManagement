@@ -82,6 +82,10 @@
                         Width="*"
                         Binding="{Binding Description}"
                         Header="Description" />
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding Quantity}"
+                        Header="Quantity" />
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -147,6 +151,10 @@
                         x:Name="TextBlockImagePath"
                         Margin="0,0,0,10"
                         materialDesign:HintAssist.Hint="Image Path" />
+                    <TextBox
+                        x:Name="TextBlockQuantity"
+                        Margin="0,0,0,10"
+                        materialDesign:HintAssist.Hint="Quantity Path" />
                 </StackPanel>
             </materialDesign:Card>
         </Grid>
