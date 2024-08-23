@@ -167,7 +167,8 @@ namespace DrinkStoreApp.Views
 
         private void NavigateToPaymentPage()
         {
-
+            PaymentWindow paymentWindow = new PaymentWindow();
+            paymentWindow.ShowDialog();
         }
 
         private void NavigateToProductPage()

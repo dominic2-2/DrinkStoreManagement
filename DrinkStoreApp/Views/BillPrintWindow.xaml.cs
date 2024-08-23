@@ -72,7 +72,7 @@ namespace DrinkStoreApp.Views
             bitmapImage.EndInit();
             qrCodeImageControl.Source = bitmapImage;
 
-            string qrcode = "";
+            string qrcode = "970422-9704229207219153644-i4KbPGL";
 
             var payment = new Payment
             {

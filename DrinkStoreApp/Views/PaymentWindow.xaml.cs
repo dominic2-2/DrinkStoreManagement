@@ -1,4 +1,5 @@
 ﻿using DrinkStoreApp.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace DrinkStoreApp.Views
     /// </summary>
     public partial class PaymentWindow : Window
     {
+        DrinkStoreContext context = new DrinkStoreContext();
         private List<Payment> payments;
         private List<User> users;
         private List<Customer> customers;
@@ -106,13 +108,13 @@ namespace DrinkStoreApp.Views
         {
             if (PaymentListView.SelectedItem is Payment selectedPayment)
             {
-                /*var user = users.FirstOrDefault(u => u.UserId == selectedPayment.CreatedBy);
-                var customer = customers.FirstOrDefault(c => c.CustomerId == selectedPayment.CustomerId);
+                var user = context.Users.FirstOrDefault(u => u.UserId == selectedPayment.Order.CreatedBy);
+                var customer = customers.FirstOrDefault(c => c.CustomerId == selectedPayment.Order.CustomerId);
 
                 OrderIdTextBlock.Text = selectedPayment.OrderId.ToString();
                 OrderDateTextBlock.Text = selectedPayment.PaymentDate.ToShortDateString();
                 ProcessedByTextBlock.Text = user?.DisplayName ?? "N/A";
-                CustomerNameTextBlock.Text = customer?.FullName ?? "N/A";*/
+                CustomerNameTextBlock.Text = customer?.FullName ?? "N/A";
             }
             else
             {
@@ -130,20 +132,21 @@ namespace DrinkStoreApp.Views
 
         private List<Payment> GetPayments()
         {
-            // Replace with actual data retrieval logic
-            return new List<Payment>();
+            // Retrieve payments from the database context
+            return context.Payments.Include(p => p.Order).ToList();
         }
 
         private List<User> GetUsers()
         {
-            // Replace with actual data retrieval logic
-            return new List<User>();
+            // Retrieve users from the database context
+            return context.Users.ToList();
         }
 
         private List<Customer> GetCustomers()
         {
-            // Replace with actual data retrieval logic
-            return new List<Customer>();
+            // Retrieve customers from the database context
+            return context.Customers.ToList();
         }
+
     }
 }

@@ -39,7 +39,7 @@ namespace DrinkStoreApp.Views
 
             var products = context.Products
                                   .Include(p => p.Unit)
-                                  .ToList(); 
+                                  .ToList();
             DvProduct.ItemsSource = products;
         }
 
@@ -60,7 +60,7 @@ namespace DrinkStoreApp.Views
                 RadioButtonYes.IsChecked = product.Status == 1;
                 RadioButtonNo.IsChecked = product.Status == 0;
                 TextBoxUnit.SelectedValue = product.Unit?.UnitId;
-
+                TextBlockQuantity.Text = product.Quantity.ToString();
                 TextBoxDescription.Text = product.Description;
                 string imagePath = product.Image;
 
@@ -105,7 +105,7 @@ namespace DrinkStoreApp.Views
                 TextBlockImagePath.Text = string.Empty;
                 RadioButtonYes.IsChecked = false;
                 RadioButtonNo.IsChecked = false;
-                TextBoxUnit.SelectedIndex = -1; 
+                TextBoxUnit.SelectedIndex = -1;
                 ProductImage.Source = null;
             }
             catch (Exception ex)
@@ -125,7 +125,8 @@ namespace DrinkStoreApp.Views
                     Status = RadioButtonYes.IsChecked == true ? (byte)1 : (byte)0,
                     Description = TextBoxDescription.Text,
                     Image = TextBlockImagePath.Text,
-                    UnitId = GetUnitIdByName(TextBoxUnit.Text)
+                    UnitId = GetUnitIdByName(TextBoxUnit.Text),
+                    Quantity = decimal.Parse(TextBlockQuantity.Text),
                 };
                 context.Products.Add(newProduct);
                 context.SaveChanges();
@@ -158,6 +159,7 @@ namespace DrinkStoreApp.Views
                         product.Price = decimal.Parse(TextBoxPrice.Text);
                         product.Status = RadioButtonYes.IsChecked == true ? (byte)1 : (byte)0;
                         product.Description = TextBoxDescription.Text;
+                        product.Quantity = decimal.Parse(TextBlockQuantity.Text);
                         if (TextBoxUnit.SelectedValue != null)
                         {
                             product.UnitId = (int)TextBoxUnit.SelectedValue;
@@ -168,7 +170,7 @@ namespace DrinkStoreApp.Views
                         }
                         product.Image = TextBlockImagePath.Text;
                         context.SaveChanges();
-                        LoadData(); 
+                        LoadData();
                     }
                     else
                     {
