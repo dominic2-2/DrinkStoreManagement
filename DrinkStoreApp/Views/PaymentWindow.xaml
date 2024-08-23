@@ -1,0 +1,187 @@
+﻿<Window
+    x:Class="DrinkStoreApp.Views.PaymentWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008/xaml"
+    xmlns:local="clr-namespace:DrinkStoreApp.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="DSM - Order History"
+    Width="737"
+    Height="662"
+    Style="{StaticResource MaterialDesignWindow}"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!--  Search section  -->
+            <RowDefinition Height="3*" />
+            <!--  Payment ListView  -->
+            <RowDefinition Height="2*" />
+            <!--  Order Details GroupBox  -->
+        </Grid.RowDefinitions>
+
+        <!--  Search Section  -->
+        <StackPanel
+            Grid.Row="0"
+            Margin="0,0,0,10"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <ComboBox
+                x:Name="cbSearchBy"
+                Width="150"
+                Margin="0,0,10,0"
+                VerticalAlignment="Center"
+                materialDesign:HintAssist.Hint="Search By"
+                SelectionChanged="cbSearchBy_SelectionChanged" />
+            <TextBox
+                x:Name="txtSearch"
+                Width="250"
+                VerticalAlignment="Center"
+                materialDesign:HintAssist.Hint="Search"
+                KeyDown="txtSearch_Key" />
+            <Button
+                x:Name="btnClear"
+                Width="100"
+                Height="35"
+                Margin="10,0,0,0"
+                Click="btnClear_Click"
+                Content="Clear"
+                ToolTip="Clear search" />
+        </StackPanel>
+
+        <!--  Payment ListView  -->
+        <Border
+            Grid.Row="1"
+            Margin="0,0,0,20"
+            Padding="10"
+            Background="White"
+            BorderBrush="#D3D3D3"
+            BorderThickness="1"
+            CornerRadius="8">
+            <ListView
+                x:Name="PaymentListView"
+                Margin="0,0,0,-11"
+                Background="White"
+                BorderThickness="0"
+                SelectionChanged="OnPaymentSelected">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn
+                            Width="150"
+                            DisplayMemberBinding="{Binding TransactionId}"
+                            Header="Transaction ID" />
+                        <GridViewColumn
+                            Width="150"
+                            DisplayMemberBinding="{Binding PaymentDate}"
+                            Header="Payment Date" />
+                        <GridViewColumn
+                            Width="160"
+                            DisplayMemberBinding="{Binding AmountPaid}"
+                            Header="Amount Paid" />
+                        <GridViewColumn
+                            Width="150"
+                            DisplayMemberBinding="{Binding TotalAmount}"
+                            Header="Total Amount" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Border>
+
+        <!--  Details GroupBox  -->
+        <Border
+            Grid.Row="2"
+            Padding="15"
+            Background="White"
+            BorderBrush="#D3D3D3"
+            BorderThickness="1"
+            CornerRadius="8">
+            <GroupBox
+                FontSize="14"
+                FontWeight="Bold"
+                Header="Details">
+                <Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <!--  Order ID  -->
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Margin="0,0,10,0"
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            Text="Order ID:" />
+                        <TextBlock
+                            x:Name="OrderIdTextBlock"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            FontSize="12" />
+
+                        <!--  Order Date  -->
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.RowSpan="2"
+                            Grid.Column="0"
+                            Margin="0,0,10,0"
+                            VerticalAlignment="Top"
+                            FontWeight="Bold"
+                            Text="Order Date:" />
+                        <TextBlock
+                            x:Name="OrderDateTextBlock"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            FontSize="12" />
+
+                        <!--  User Name (Person who made the payment)  -->
+                        <TextBlock
+                            Grid.Row="5"
+                            Grid.Column="0"
+                            Margin="0,0,10,0"
+                            VerticalAlignment="Top"
+                            FontWeight="Bold"
+                            Text="Processed By:" />
+                        <TextBlock
+                            x:Name="ProcessedByTextBlock"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            FontSize="12" />
+
+                        <!--  Customer Name  -->
+                        <TextBlock
+                            Grid.Row="5"
+                            Grid.Column="0"
+                            Margin="0,30,10,0"
+                            VerticalAlignment="Top"
+                            FontWeight="Bold"
+                            Text="Customer Name:" />
+                        <TextBlock
+                            x:Name="CustomerNameTextBlock"
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            FontSize="12" />
+                    </Grid>
+                </Grid>
+            </GroupBox>
+        </Border>
+    </Grid>
+</Window>
