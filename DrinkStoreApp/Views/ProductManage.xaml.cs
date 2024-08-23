@@ -39,8 +39,7 @@ namespace DrinkStoreApp.Views
 
             var products = context.Products
                                   .Include(p => p.Unit)
-                                  .ToList(); // Lấy danh sách sản phẩm bao gồm Unit
-
+                                  .ToList(); 
             DvProduct.ItemsSource = products;
         }
 
@@ -74,14 +73,12 @@ namespace DrinkStoreApp.Views
                         bitmap.UriSource = new Uri(imagePath, UriKind.Absolute);
                         bitmap.EndInit();
                         ProductImage.Source = bitmap;
-
-                        // Cập nhật đường dẫn hình ảnh vào TextBlock
                         TextBlockImagePath.Text = imagePath;
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show($"Error loading image: {ex.Message}");
-                        ProductImage.Source = null; // Hoặc đặt thành hình ảnh mặc định
+                        ProductImage.Source = null;
                         TextBlockImagePath.Text = "Error loading image.";
                     }
                 }
@@ -108,7 +105,7 @@ namespace DrinkStoreApp.Views
                 TextBlockImagePath.Text = string.Empty;
                 RadioButtonYes.IsChecked = false;
                 RadioButtonNo.IsChecked = false;
-                TextBoxUnit.SelectedIndex = -1; // Hoặc đặt lại giá trị mặc định nếu có
+                TextBoxUnit.SelectedIndex = -1; 
                 ProductImage.Source = null;
             }
             catch (Exception ex)
@@ -137,7 +134,7 @@ namespace DrinkStoreApp.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error adding product: {ex.Message}");
+                MessageBox.Show($"Error adding product");
             }
         }
 
@@ -171,7 +168,7 @@ namespace DrinkStoreApp.Views
                         }
                         product.Image = TextBlockImagePath.Text;
                         context.SaveChanges();
-                        LoadData(); // Làm mới DataGrid
+                        LoadData(); 
                     }
                     else
                     {
@@ -185,7 +182,7 @@ namespace DrinkStoreApp.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error editing product: {ex.Message}");
+                MessageBox.Show($"Error editing product");
             }
         }
 

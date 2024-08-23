@@ -1,6 +1,9 @@
 ﻿using DrinkStoreApp.Models;
 using DrinkStoreApp.Services;
+using LiveCharts.Wpf;
+using LiveCharts;
 using MaterialDesignThemes.Wpf;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic.ApplicationServices;
 using Microsoft.VisualBasic.Logging;
 using System;
@@ -30,6 +33,41 @@ namespace DrinkStoreApp.Views
         {
             InitializeComponent();
             LoadData();
+            LoadChartData();
+        }
+
+        private void LoadChartData()
+        {
+            using (var context = new DrinkStoreContext())
+            {
+                var revenueData = context.Orders
+                    .Include(o => o.OrderDetails) 
+                    .AsEnumerable()               
+                    .GroupBy(o => o.OrderDate.Month)
+                    .Select(g => new
+                    {
+                        Month = g.Key,
+                        TotalRevenue = g.Sum(o => o.OrderDetails?.Sum(od => od.TotalPrice) ?? 0) 
+                    })
+                    .OrderBy(r => r.Month)
+                    .ToList();
+
+
+
+                var monthLabels = revenueData.Select(r => "Month " + r.Month.ToString()).ToArray();
+                var revenueValues = new ChartValues<double>(revenueData.Select(r => (double)r.TotalRevenue));
+
+                revenueChart.Series = new SeriesCollection
+                {
+                    new ColumnSeries
+                    {
+                        Title = "Revenue",
+                        Values = revenueValues
+                    }
+                };
+
+                revenueChart.AxisX[0].Labels = monthLabels;
+            }
         }
         DrinkStoreContext context = new DrinkStoreContext();
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

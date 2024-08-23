@@ -5,156 +5,82 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:DrinkStoreApp.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Window1"
-    Width="1300"
-    Height="1000"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    
+    Title="Add New Bill"
+    Width="575"
+    Height="500"
     mc:Ignorable="d">
     <Grid>
         <TextBlock
-            Margin="17,18,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Text="Customer"
-            TextWrapping="Wrap" />
-        <ComboBox
-            x:Name="CustomerComboBox"
-            Width="201"
-            Margin="98,14,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top" />
+    Margin="53,184,0,0"
+    HorizontalAlignment="Left"
+    VerticalAlignment="Top"
+    Text="Customer:"
+    TextWrapping="Wrap" />
+        <TextBox
+    x:Name="PhoneNumberTextBox"
+    Width="201"
+    Margin="134,180,0,0"
+    HorizontalAlignment="Left"
+    VerticalAlignment="Top"
+    TextChanged="PhoneNumberTextBox_TextChanged"
+            materialDesign:HintAssist.Hint="Enter phone number" 
+            />
+
         <StackPanel
-            Width="606"
-            Height="167"
-            Margin="20,50,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top">
+    Width="460"
+    Height="167"
+    Margin="56,216,0,0"
+    HorizontalAlignment="Left"
+    VerticalAlignment="Top">
             <DataGrid
-                x:Name="CustomerDataGrid"
-                Width="611"
-                Height="167"
-                SelectionChanged="CustomerDataGrid_SelectionChanged" />
-        </StackPanel>
-        <TextBlock
-            Margin="20,303,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Text="Product Name"
-            TextWrapping="Wrap" />
-        <ComboBox
-            x:Name="ProductComboBox"
-            Width="210"
-            Margin="115,302,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top" />
-        <StackPanel
-            Width="606"
-            Height="307"
-            Margin="20,341,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top">
-            <DataGrid
-                x:Name="dgProduct"
-                Height="305"
-                
-                SelectionChanged="dgProduct_SelectionChanged" />
+        x:Name="CustomerDataGrid"
+        Width="459"
+        Height="167"
+        SelectionChanged="CustomerDataGrid_SelectionChanged" />
         </StackPanel>
         <StackPanel
-            Width="388"
+            Width="470"
             Height="50"
-            Margin="697,50,0,0"
+            Margin="54,97,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Background="#FFA3E6DF">
-            <StackPanel Width="369" Orientation="Horizontal">
+            <StackPanel Width="442" Orientation="Horizontal">
                 <TextBlock
                     Width="121"
                     Text="Nhân Viên:"
                     TextWrapping="Wrap" />
                 <TextBlock
                     x:Name="tbVN"
-                    Width="247"
+                    Width="326"
                     Text=""
                     TextWrapping="Wrap" />
             </StackPanel>
-            <StackPanel Width="369" Orientation="Horizontal">
+            <StackPanel Width="442" Orientation="Horizontal" Margin="0,10,0,0">
                 <TextBlock
                     Width="119"
                     Text="Date:"
                     TextWrapping="Wrap" />
                 <TextBlock
                     x:Name="tbDate"
-                    Width="250"
+                    Width="331"
                     Text=""
                     TextWrapping="Wrap" />
             </StackPanel>
 
-
-        </StackPanel>
-        <StackPanel
-            Width="525"
-            Height="147"
-            Margin="697,134,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Background="#FFE5DDDD">
-            <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
-                <TextBlock
-                    Width="122"
-                    Text="Product"
-                    TextWrapping="Wrap" />
-                <TextBlock
-                    x:Name="tbProduct"
-                    Width="387"
-                    Text=""
-                    TextWrapping="Wrap" />
-            </StackPanel>
-            <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
-                <TextBlock
-                    Width="122"
-                    Margin="0,10,0,0"
-                    Text="Quantity"
-                    TextWrapping="Wrap" />
-                <TextBox
-                    x:Name="tbQuantity"
-                    Width="387"
-                    Text=""
-                    TextWrapping="Wrap" />
-            </StackPanel>
-
-            <!--<StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                <TextBlock TextWrapping="Wrap" Text="Delivery" Width="122" Margin="0,10,0,0"/>
-                <DatePicker Width="386" x:Name="dpDelivery" />
-            </StackPanel>-->
-            <Button
-                Width="143"
-                Margin="0,20,0,0"
-                Click="Add_Click"
-                Content="Add Product" />
 
         </StackPanel>
 
         <Button
-            Margin="224,265,0,0"
+            Margin="234,402,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Click="Order_Click"
-            Content="Add_Order" />
-        <StackPanel
-            Width="525"
-            Height="243"
-            Margin="697,327,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top">
-            <DataGrid
-                x:Name="dgAddProduct"
-                Height="241"
-                 />
-        </StackPanel>
-        <Button
-            Width="143"
-            Margin="697,616,0,0"
-            Click="PrintBill_Click"
-            Content="Print Bill" />
+            Content="Add Order" />
+        <TextBlock HorizontalAlignment="Left" Margin="157,28,0,0" TextWrapping="Wrap" Text="Choose Customer" VerticalAlignment="Top" FontSize="30" FontFamily="Segoe UI Black" FontWeight="Bold" Foreground="#FFCE3838"/>
+
 
 
     </Grid>

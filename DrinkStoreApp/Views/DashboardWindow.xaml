@@ -6,9 +6,11 @@
     xmlns:local="clr-namespace:DrinkStoreApp.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+    
     Title="DSM"
-    Width="1536"
-    Height="864"
+    Width="1200"
+    Height="800"
     Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterScreen"
     WindowState="Maximized"
@@ -232,7 +234,7 @@
                     </StackPanel>
                 </DockPanel>
             </materialDesign:ColorZone>
-            <materialDesign:Card
+            <!--<materialDesign:Card
                 Width="200"
                 Height="100"
                 Margin="1302,103,34,642"
@@ -354,14 +356,23 @@
                             Style="{StaticResource MaterialDesignToolForegroundPopupBox}" />
                     </StackPanel>
                 </Grid>
-            </materialDesign:Card>
-            <DataGrid
-                Width="1516"
-                Height="292"
-                Margin="0,543,0,0"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                d:ItemsSource="{d:SampleData ItemCount=5}" />
+            </materialDesign:Card>-->
+            <StackPanel HorizontalAlignment="Left" Height="573" Margin="26,182,0,0" VerticalAlignment="Top" Width="1114" Background="#FFC0E0DE">
+                <lvc:CartesianChart x:Name="revenueChart" Height="557" Width="1096">
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis Title="Month"
+                      Labels="{Binding MonthLabels}"
+                      Foreground="Black"/>
+                    </lvc:CartesianChart.AxisX>
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis Title="Revenue (in VND)"
+                      Foreground="Black"/>
+                    </lvc:CartesianChart.AxisY>
+                </lvc:CartesianChart>
+            </StackPanel>
+            <TextBlock HorizontalAlignment="Left" Margin="375,115,0,0" TextWrapping="Wrap" Text="Revenue report statistics" VerticalAlignment="Top" FontFamily="Arial Black" FontSize="30" Foreground="#FFEB1A1A"/>
+
+
 
         </Grid>
     </materialDesign:DrawerHost>
