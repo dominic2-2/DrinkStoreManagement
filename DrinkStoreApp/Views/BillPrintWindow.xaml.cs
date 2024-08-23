@@ -1,4 +1,5 @@
 ﻿using DrinkStoreApp.Models;
+using DrinkStoreApp.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -29,7 +30,7 @@ namespace DrinkStoreApp.Views
             LoadPage(orderId, delivery);
         }
 
-        private void LoadPage(string orderId, string? delivery)
+        private async void LoadPage(string orderId, string? delivery)
         {
             int oID = int.Parse(orderId);
             var orderDetails = context.OrderDetails
@@ -61,13 +62,23 @@ namespace DrinkStoreApp.Views
                 totalAmount += item.SumPrice;
             }
 
-            var qrcode = "";
+            //var vietQRService = new VietQRService();
+            //var qrCodeImage = await vietQRService.GenerateQRCode(totalAmount, orderId);
+            //qrCodeImageControl.Source = qrCodeImage;
+
+            var bitmapImage = new BitmapImage();
+            bitmapImage.BeginInit();
+            bitmapImage.UriSource = new Uri($"https://api.vietqr.io/image/970422-9704229207219153644-i4KbPGL.jpg?accountName=TRAN%20THANH%20BINH&amount={totalAmount}&addInfo=DrinkStore");
+            bitmapImage.EndInit();
+            qrCodeImageControl.Source = bitmapImage;
+
+            string qrcode = "";
 
             var payment = new Payment
             {
                 OrderId = oID,
                 PaymentDate = DateTime.Now,
-                PaymentType = "QRCode",
+                PaymentType = "QRCode & Cash",
                 AmountPaid = totalAmount,
                 TotalAmount = totalAmount,
                 ChangeDue = 0,
