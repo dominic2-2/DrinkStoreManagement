@@ -1,6 +1,9 @@
 ﻿using DrinkStoreApp.Models;
 using DrinkStoreApp.Services;
+using LiveCharts.Wpf;
+using LiveCharts;
 using MaterialDesignThemes.Wpf;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic.ApplicationServices;
 using Microsoft.VisualBasic.Logging;
 using System;
@@ -30,6 +33,41 @@ namespace DrinkStoreApp.Views
         {
             InitializeComponent();
             LoadData();
+            LoadChartData();
+        }
+
+        private void LoadChartData()
+        {
+            using (var context = new DrinkStoreContext())
+            {
+                var revenueData = context.Orders
+                    .Include(o => o.OrderDetails) 
+                    .AsEnumerable()               
+                    .GroupBy(o => o.OrderDate.Month)
+                    .Select(g => new
+                    {
+                        Month = g.Key,
+                        TotalRevenue = g.Sum(o => o.OrderDetails?.Sum(od => od.TotalPrice) ?? 0) 
+                    })
+                    .OrderBy(r => r.Month)
+                    .ToList();
+
+
+
+                var monthLabels = revenueData.Select(r => "Month " + r.Month.ToString()).ToArray();
+                var revenueValues = new ChartValues<double>(revenueData.Select(r => (double)r.TotalRevenue));
+
+                revenueChart.Series = new SeriesCollection
+                {
+                    new ColumnSeries
+                    {
+                        Title = "Revenue",
+                        Values = revenueValues
+                    }
+                };
+
+                revenueChart.AxisX[0].Labels = monthLabels;
+            }
         }
         DrinkStoreContext context = new DrinkStoreContext();
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -118,7 +156,8 @@ namespace DrinkStoreApp.Views
 
         private void NavigateToOrderPage()
         {
-            // Logic to navigate to the Order page
+            Window1 window1 = new Window1();
+            window1.ShowDialog();
         }
 
         private void NavigateToImportPage()
@@ -128,7 +167,7 @@ namespace DrinkStoreApp.Views
 
         private void NavigateToPaymentPage()
         {
-            // Logic to navigate to the Payment page
+
         }
 
         private void NavigateToProductPage()
@@ -174,10 +213,15 @@ namespace DrinkStoreApp.Views
         {
             var user = _securityService.GetCurrentUser();
             txtUserName.Text = user.Username;
-           txtUserRole.Text = context.UserRoles.FirstOrDefault(c => c.RoleId == user.RoleId).RoleName;
-            if (imgAvatar.ImageSource == null)
+            txtUserRole.Text = context.UserRoles.FirstOrDefault(c => c.RoleId == user.RoleId).RoleName;
+            if (user.Image == null)
             {
                 imgAvatar.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/meocon.jpg", UriKind.Absolute));
+
+            }
+            else
+            {
+                imgAvatar.ImageSource = new BitmapImage(new Uri(user.Image, UriKind.Absolute));
 
             }
 

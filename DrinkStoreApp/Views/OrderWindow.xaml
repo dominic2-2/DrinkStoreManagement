@@ -1,0 +1,87 @@
+﻿<Window
+    x:Class="DrinkStoreApp.Views.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:DrinkStoreApp.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    
+    Title="Add New Bill"
+    Width="575"
+    Height="500"
+    mc:Ignorable="d">
+    <Grid>
+        <TextBlock
+    Margin="53,184,0,0"
+    HorizontalAlignment="Left"
+    VerticalAlignment="Top"
+    Text="Customer:"
+    TextWrapping="Wrap" />
+        <TextBox
+    x:Name="PhoneNumberTextBox"
+    Width="201"
+    Margin="134,180,0,0"
+    HorizontalAlignment="Left"
+    VerticalAlignment="Top"
+    TextChanged="PhoneNumberTextBox_TextChanged"
+            materialDesign:HintAssist.Hint="Enter phone number" 
+            />
+
+        <StackPanel
+    Width="460"
+    Height="167"
+    Margin="56,216,0,0"
+    HorizontalAlignment="Left"
+    VerticalAlignment="Top">
+            <DataGrid
+        x:Name="CustomerDataGrid"
+        Width="459"
+        Height="167"
+        SelectionChanged="CustomerDataGrid_SelectionChanged" />
+        </StackPanel>
+        <StackPanel
+            Width="470"
+            Height="50"
+            Margin="54,97,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Background="#FFA3E6DF">
+            <StackPanel Width="442" Orientation="Horizontal">
+                <TextBlock
+                    Width="121"
+                    Text="Nhân Viên:"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    x:Name="tbVN"
+                    Width="326"
+                    Text=""
+                    TextWrapping="Wrap" />
+            </StackPanel>
+            <StackPanel Width="442" Orientation="Horizontal" Margin="0,10,0,0">
+                <TextBlock
+                    Width="119"
+                    Text="Date:"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    x:Name="tbDate"
+                    Width="331"
+                    Text=""
+                    TextWrapping="Wrap" />
+            </StackPanel>
+
+
+        </StackPanel>
+
+        <Button
+            Margin="234,402,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Click="Order_Click"
+            Content="Add Order" />
+        <TextBlock HorizontalAlignment="Left" Margin="157,28,0,0" TextWrapping="Wrap" Text="Choose Customer" VerticalAlignment="Top" FontSize="30" FontFamily="Segoe UI Black" FontWeight="Bold" Foreground="#FFCE3838"/>
+
+
+
+    </Grid>
+</Window>
